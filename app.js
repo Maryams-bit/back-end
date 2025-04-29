@@ -1,15 +1,21 @@
-const express = require('express')
-const cors = require('cors')
-const bodyParser = require("body-parser")
+const {configDotenv}=require("dotenv");
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require("body-parser");
 const { MongoClient, ServerApiVersion } = require('mongodb');
+
 const app = express();
+configDotenv();
+
+const port = process.env.PORT || 3000
+const host = "0.0.0.0";
 
 app.use(cors());
 app.use(bodyParser.json());
 //4YZcJo2OW0IUfpSN
 
-const port = 3010
-const uri = "mongodb+srv://user:t6wsORfkQT4QyfyJ@cict.r6ujuk9.mongodb.net/?retryWrites=true&w=majority&appName=CICT";
+
+const uri = process.env.SUPERBASE_URI
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -74,7 +80,7 @@ app.post("/student", async (req, res)=>{
   
   }
 )
-app.listen(port, () => 
+app.listen(port, host, () => 
   console.log("app is running on port"+port))
 
 console.log("Hey Maryam");
